@@ -3,16 +3,19 @@ package com.saucedemo.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsPage {
     private WebDriver driver;
 
     private By title = By.className("title");
     private By productNames = By.cssSelector(".inventory_item_name");
+    private By productPrices = By.cssSelector(".inventory_item_price");
+    private By productDescriptions = By.cssSelector(".inventory_item_desc");
+    private By productImages = By.cssSelector(".inventory_item_img img");
     private By cartIcon = By.id("shopping_cart_container");
     private By sortDropdown = By.className("product_sort_container");
     private By firstProductName = By.cssSelector(".inventory_item_name");
@@ -57,5 +60,51 @@ public class ProductsPage {
         if (index >= 0 && index < btns.size()) {
             btns.get(index).click();
         }
+    }
+
+    // ------------------- NEW METHODS -------------------
+
+    // Get product prices as doubles
+    public List<Double> getProductPrices() {
+        List<WebElement> pricesElements = driver.findElements(productPrices);
+        List<Double> prices = new ArrayList<>();
+        for (WebElement p : pricesElements) {
+            String text = p.getText().replace("$", "").trim();
+            prices.add(Double.parseDouble(text));
+        }
+        return prices;
+    }
+
+    // Get count of items in cart
+    public int getCartCount() {
+        try {
+            String count = driver.findElement(By.className("shopping_cart_badge")).getText();
+            return Integer.parseInt(count);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    // Get product title on details page
+    public String getProductDetailTitle() {
+        return driver.findElement(By.className("inventory_details_name")).getText();
+    }
+
+    // Check all product images are displayed
+    public boolean areProductImagesVisible() {
+        List<WebElement> imgs = driver.findElements(productImages);
+        for (WebElement img : imgs) {
+            if (!img.isDisplayed()) return false;
+        }
+        return true;
+    }
+
+    // Check all product descriptions are displayed
+    public boolean areProductDescriptionsVisible() {
+        List<WebElement> descs = driver.findElements(productDescriptions);
+        for (WebElement d : descs) {
+            if (!d.isDisplayed()) return false;
+        }
+        return true;
     }
 }

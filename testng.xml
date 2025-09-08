@@ -9,7 +9,7 @@
       <class name="com.saucedemo.tests.LoginTest"/>
       <class name="com.saucedemo.tests.FooterTest"/>
       <class name="com.saucedemo.tests.MenuTest"/>
-      <class name="com.saucedemo.tests.ProductTest"/>
+      <class name="com.saucedemo.tests.ProductsTest"/>
       <class name="com.saucedemo.tests.CartTest"/>
     </classes>
   </test>
