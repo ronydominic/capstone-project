@@ -7,14 +7,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
 import com.saucedemo.utilities.ExtentManager;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
-    protected WebDriver driver;
+    protected static WebDriver driver;   // 🔹 make static
     protected ExtentReports extent;
     protected ExtentTest test;
 
@@ -28,9 +27,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        // small implicit wait for flaky items
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        // open base url; ConfigReader can be used to read URL
         driver.get("https://www.saucedemo.com/");
     }
 
@@ -48,7 +45,11 @@ public class BaseTest {
         }
     }
 
-    // helper to navigate
+    // 🔹 static getter for driver
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
     public void navigateTo(String url) {
         driver.get(url);
     }

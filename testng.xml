@@ -1,16 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="SauceDemoSuite" parallel="false">
-  <listeners>
-    <!-- we are using manual test.pass/fail inside tests, listener optional -->
-  </listeners>
-
-  <test name="SauceDemoTests">
-    <classes>
-      <class name="com.saucedemo.tests.LoginTest"/>
-      <class name="com.saucedemo.tests.FooterTest"/>
-      <class name="com.saucedemo.tests.MenuTest"/>
-      <class name="com.saucedemo.tests.ProductsTest"/>
-      <class name="com.saucedemo.tests.CartTest"/>
-    </classes>
-  </test>
+<suite name="SauceDemo Suite">
+    <listeners>
+        <listener class-name="com.saucedemo.listeners.TestListener"/>
+    </listeners>
+    <test name="SauceDemo E2E Test">
+        <classes>
+            <class name="com.saucedemo.tests.MainTest"/>
+        </classes>
+    </test>
 </suite>
